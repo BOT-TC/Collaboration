@@ -2,6 +2,12 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
+## Project Status
+
+[![E2E Tests](https://github.com/BOT-TC/Collaboration/actions/workflows/e2e.tests.yml/badge.svg?branch=main)](https://github.com/BOT-TC/Collaboration/actions/workflows/e2e.tests.yml)
+
+[![Unit Tests](https://github.com/BOT-TC/Collaboration/actions/workflows/unit.tests.yml/badge.svg)](https://github.com/BOT-TC/Collaboration/actions/workflows/unit.tests.yml)
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
