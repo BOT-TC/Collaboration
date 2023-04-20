@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cypress-run:
+  vitest-run:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
