@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "soscolab",
     "public": "dist",
     "ignore": [
       "firebase.json",
