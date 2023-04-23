@@ -1,13 +1,21 @@
 // https://docs.cypress.io/api/introduction/api.html
 
 describe('My First Test', () => {
-  it('visits the app root url', () => {
-    cy.visit('/')
-    cy.contains('h1', 'Modern Vue Dev')
-    cy.get('[href="/about"]').click();
-    cy.contains('h1', 'This is an about page')
-    cy.get('[href="/login"]').click();
-    cy.get('#app > :nth-child(2) > div > h1').click();
-    cy.contains('h1', 'Sign In/Up')
+  context('mobile viewport test', () => {
+    it('visits the app root url', () => {
+      cy.viewport('iphone-x')
+      cy.visit('/')
+      cy.get('.navbar-start').contains('a', 'Modern Vue Dev')
+      cy.get('[data-test="nav-menu-mobile"]').click();
+      cy.get('[data-test="nav-login-mobile"]').click();
+    })
+  })
+  context('desktop viewport test', () => {
+    it('visits the app root url', () => {
+      cy.viewport(1280, 720)
+      cy.visit('/')
+      cy.get('.navbar-start').contains('a', 'Modern Vue Dev')
+      cy.get('[data-test="nav-login-std"]').click();
+    })
   })
 })
