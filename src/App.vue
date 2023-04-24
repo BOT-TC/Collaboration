@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { ref, provide } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import { useCurrentUser } from 'vuefire';
+import LoginModal from './components/collaboration/LoginModal.vue'
+
+const capps = ref(['red', 'fish'])
+provide('$capps', capps)
 
 const user = useCurrentUser();
+const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
 </script>
 
 <template>
@@ -21,6 +27,10 @@ const user = useCurrentUser();
               <RouterLink to="/" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">Home...
               </RouterLink>
             </li>
+            <li>
+              <RouterLink to="/course" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">OLS...
+              </RouterLink>
+            </li>
             <li tabindex="0">
               <a class="justify-between">
                 Parent
@@ -31,18 +41,22 @@ const user = useCurrentUser();
               <ul class="p-2 bg-blue-800">
                 <li>
                   <RouterLink to="/" class="inline-block no-underline py-2 px-4">Home</RouterLink>
-                </li>
+              </li>
                 <li>
                   <RouterLink to="/about" class="inline-block no-underline py-2 px-4">About</RouterLink>
                 </li>
                 <li>
-                  <RouterLink to="/login" class="inline-block no-underline py-2 px-4">Login</RouterLink>
+                  <!-- <RouterLink to="/login" class="inline-block no-underline py-2 px-4">Login</RouterLink> -->
+                  <!-- The button to open modal -->
+                  <label for="login-modal" data-test="nav-login-std"
+                    class="inline-block no-underline py-2 px-4">Login</label>
                 </li>
               </ul>
             </li>
             <li>
-              <RouterLink to="/login" data-test="nav-login-mobile" class="inline-block no-underline py-2 px-4">Login
-              </RouterLink>
+              <!-- <RouterLink to="/login" data-test="nav-login-mobile" class="inline-block no-underline py-2 px-4">Login
+                                      </RouterLink> -->
+              <label for="login-modal" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login</label>
             </li>
           </ul>
         </div>
@@ -53,6 +67,11 @@ const user = useCurrentUser();
           <li>
             <RouterLink to="/" data-test="nav-home-std" class="inline-block no-underline py-2 px-4">Home</RouterLink>
           </li>
+          <li>
+            <RouterLink to="/course" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">OLS
+            </RouterLink>
+          </li>
+
           <li tabindex="0">
             <a>
               Parent
@@ -62,19 +81,22 @@ const user = useCurrentUser();
             </a>
             <ul class="p-2 bg-blue-800">
               <li>
-                <RouterLink to="/" class="inline-block no-underline py-2 px-4">Home</RouterLink>
+              <RouterLink to="/" class="inline-block no-underline py-2 px-4">Home</RouterLink>
               </li>
               <li>
                 <RouterLink to="/about" class="inline-block no-underline py-2 px-4">About</RouterLink>
               </li>
               <li>
-                <RouterLink to="/login" class="inline-block no-underline py-2 px-4">Login</RouterLink>
+                <!-- <RouterLink to="/login" class="inline-block no-underline py-2 px-4">Login</RouterLink> -->
+                <label for="login-modal" data-test="nav-login-std"
+                  class="inline-block no-underline py-2 px-4">Login</label>
               </li>
             </ul>
           </li>
           <li>
-            <RouterLink to="/login" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login
-            </RouterLink>
+            <!-- <RouterLink to="/login" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login
+                                              </RouterLink> -->
+            <label for="login-modal" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login</label>
           </li>
         </ul>
       </div>
@@ -116,6 +138,7 @@ const user = useCurrentUser();
             </li>
             <li><a>Settings</a></li>
             <li><a>Logout</a></li>
+            <li><a>({{ backend }})</a></li>
           </ul>
         </div>
         <a class="btn">Get started</a>
@@ -155,6 +178,7 @@ const user = useCurrentUser();
           </svg></a>
       </div>
     </footer>
+    <LoginModal id="login-modal" />
   </div>
 </template>
 

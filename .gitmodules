@@ -1,0 +1,6 @@
+[submodule "src/apps/ols"]
+	path = src/apps/ols
+	url = https://github.com/sosensible/OLS-CApp
+[submodule "src/apps/blog"]
+	path = src/apps/blog
+	url = https://github.com/sosensible/Blog-CApp

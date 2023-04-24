@@ -4,8 +4,13 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, type Auth }
 import { useCurrentUser, useFirebaseAuth } from 'vuefire';
 import { signOut } from '@firebase/auth'
 
+// docs : https://daisyui.com/components/modal/#
+const props = defineProps<{
+  id: string
+}>()
 const user = useCurrentUser();
 const auth = useFirebaseAuth();
+const closeForm = ref();
 
 const newUser = ref({
   email: '',
@@ -32,6 +37,7 @@ async function signIntoFirebase() {
       // Signed In
       const user = userCredential.user;
       clearFormData()
+      closeForm.value.click()
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -62,8 +68,11 @@ const clearFormData = () => {
 </script>
 
 <template>
-  <div>
-    <div class="flex justify-center">
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" :id="props.id" class="modal-toggle" />
+  <div class="modal modal-middle">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Login:</h3>
       <form @submit.prevent class="form-control max-w-lg" v-if="user?.email">
         <button @click="signOutOfFirebase" class="btn">Sign Out</button>
       </form>
@@ -85,34 +94,9 @@ const clearFormData = () => {
             In</button>
         </form>
       </div>
+      <div class="modal-action">
+        <label ref="closeForm" :for="props.id" class="btn">OK</label>
+      </div>
     </div>
-
-    <div class="container shadow-lg mx-auto bg-white mt-24 md:mt-18">asdf</div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <hr>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <hr>
-    <br>
-    <br>
-    <br>
-    <br>
-    <hr>
-    <br>
-    <br>
-    <br>
-    <br>
-    <hr>
   </div>
 </template>
