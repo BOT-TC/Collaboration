@@ -5,9 +5,8 @@ import HelloWorld from './components/HelloWorld.vue'
 import { useCurrentUser } from 'vuefire';
 import LoginModal from './components/collaboration/LoginModal.vue'
 
-const capps = ref(['red', 'fish'])
-provide('$capps', capps)
-
+const capps = ref(JSON.parse(sessionStorage.getItem('capps') ?? ""))
+console.log('capps', capps)
 const user = useCurrentUser();
 const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
 </script>
@@ -27,9 +26,11 @@ const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
               <RouterLink to="/" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">Home...
               </RouterLink>
             </li>
-            <li>
-              <RouterLink to="/course" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">OLS...
-              </RouterLink>
+            <li v-for="{ name, base_route } in capps">
+              .<RouterLink :to="`{name: '${name}.main'}`" data-test="nav-home-mobile"
+                class="inline-block no-underline py-2 px-4">
+                !{{ name }}!
+              </RouterLink>.
             </li>
             <li tabindex="0">
               <a class="justify-between">
@@ -41,8 +42,8 @@ const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
               <ul class="p-2 bg-blue-800">
                 <li>
                   <RouterLink to="/" class="inline-block no-underline py-2 px-4">Home</RouterLink>
-              </li>
-                <li>
+                </li>
+              <li>
                   <RouterLink to="/about" class="inline-block no-underline py-2 px-4">About</RouterLink>
                 </li>
                 <li>
@@ -55,7 +56,7 @@ const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
             </li>
             <li>
               <!-- <RouterLink to="/login" data-test="nav-login-mobile" class="inline-block no-underline py-2 px-4">Login
-                                      </RouterLink> -->
+                                                                                      </RouterLink> -->
               <label for="login-modal" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login</label>
             </li>
           </ul>
@@ -67,11 +68,11 @@ const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
           <li>
             <RouterLink to="/" data-test="nav-home-std" class="inline-block no-underline py-2 px-4">Home</RouterLink>
           </li>
-          <li>
-            <RouterLink to="/course" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">OLS
+          <li v-for="{ short_title, base_route } in capps">
+            <RouterLink :to="`/${base_route}`" data-test="nav-home-mobile" class="inline-block no-underline py-2 px-4">
+              {{ short_title }}
             </RouterLink>
           </li>
-
           <li tabindex="0">
             <a>
               Parent
@@ -81,8 +82,8 @@ const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
             </a>
             <ul class="p-2 bg-blue-800">
               <li>
-              <RouterLink to="/" class="inline-block no-underline py-2 px-4">Home</RouterLink>
-              </li>
+                <RouterLink to="/" class="inline-block no-underline py-2 px-4">Home</RouterLink>
+            </li>
               <li>
                 <RouterLink to="/about" class="inline-block no-underline py-2 px-4">About</RouterLink>
               </li>
@@ -95,7 +96,7 @@ const backend = ref(import.meta.env.VITE_BACKEND_PLATFORM)
           </li>
           <li>
             <!-- <RouterLink to="/login" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login
-                                              </RouterLink> -->
+                                                                                              </RouterLink> -->
             <label for="login-modal" data-test="nav-login-std" class="inline-block no-underline py-2 px-4">Login</label>
           </li>
         </ul>

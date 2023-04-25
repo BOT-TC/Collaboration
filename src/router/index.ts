@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import { inject, ref } from 'vue'
+import CappHomeView from '../views/HomeView.vue'
+import { Capp_Meta, Capp_Routes } from './capps'
+// import default } from '../apps/blog/capp.config';
+// import { default } from '../apps/ols/_meta';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: CappHomeView
   },
   {
     path: '/about',
-    name: 'about',
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -19,22 +20,16 @@ const routes = [
 ]
 
 export const capps = [];
-
-const modules = import.meta.glob("../apps/**/router/index.ts");
-for (const path in modules) {
-  const capp_name: RegExpExecArray | null = /..\/apps\/(.*)\/router\/index.*/.exec(path);
-  if (capp_name && capp_name?.length >= 2 && capp_name[1].length) {
-    const capp = {
-      name: capp_name[1],
-      path: `/apps/${capp_name[1]}/router`
-    }
-    capps.push(capp)
-    const capp_path = `../apps/${capp.name}/router`;
-    const { default: capp_route } = await import(/* @vite-ignore */capp_path);
-    routes.push(capp_route);
-  }
-}
+Capp_Meta.forEach((meta) => {
+  console.log('meta', meta)
+  // @ts-ignore
+  capps.push(meta)
+})
 sessionStorage.setItem('capps', JSON.stringify(capps))
+
+Capp_Routes.forEach((route) => {
+  routes.push(route)
+})
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

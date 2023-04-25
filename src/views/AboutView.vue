@@ -3,7 +3,6 @@ import { ref, onMounted, onUpdated } from 'vue';
 
 // @ts-ignore
 const capps = ref(JSON.parse(sessionStorage.getItem('capps') ?? ""))
-const s = ref([2, 5])
 </script>
 
 <template>
@@ -12,6 +11,8 @@ const s = ref([2, 5])
     <h2>{{ capps.length }} Installed Apps</h2>
     <p>
     <ul>
+      <!-- <li v-for="{ name, title, description } in capps" key="capp">
+          {{ name }}: {{ title }} : {{ description }} -->
       <li v-for="{ name } in capps" key="capp">
         {{ name }}
       </li>
